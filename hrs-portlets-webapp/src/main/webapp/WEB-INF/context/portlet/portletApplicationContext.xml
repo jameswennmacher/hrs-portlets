@@ -45,14 +45,14 @@
                 <constructor-arg>
                     <list>
                         <!-- TODO filter to catch id & attr swapper behavior -->
-                        <bean class="org.jasig.springframework.security.portlet.context.PortletSecurityContextPersistenceFilter" />
+                     <!-- <bean class="org.jasig.springframework.security.portlet.context.PortletSecurityContextPersistenceFilter" />
                         <bean class="org.jasig.springframework.security.portlet.authentication.PortletAuthenticationProcessingFilter">
                             <property name="authenticationDetailsSource">
-                                <!-- Configurable - will be rare to change though as it implies something other than getRemoteUser is used to determine auth -->
+                                <!- Configurable - will be rare to change though as it implies something other than getRemoteUser is used to determine auth ->
                                 <bean class="edu.wisc.web.security.portlet.primaryattr.PrimaryAttributePortletPreAuthenticatedAuthenticationDetailsSource">
                                     <property name="primaryUserAttributesPreference" value="emplidUserAttributes" />
                                     <property name="mappableRolesRetriever">
-                                        <!-- Configurable - gets list of roles to check request.isUserInRole for. Default is to parse from portlet.xml -->
+                                        <!- Configurable - gets list of roles to check request.isUserInRole for. Default is to parse from portlet.xml ->
                                         <bean class="org.jasig.springframework.security.portlet.authentication.PortletXmlMappableAttributesRetriever" />
                                     </property>
                                 </bean>
@@ -60,17 +60,17 @@
                             <property name="authenticationManager">
                                 <bean class="org.springframework.security.authentication.ProviderManager">
                                     <constructor-arg>
-                                        <!-- Configurable - is this replaceable or can users just add additional providers? -->
+                                        <!- Configurable - is this replaceable or can users just add additional providers? ->
                                         <bean class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
                                             <property name="preAuthenticatedUserDetailsService">
-                                                <!-- Configurable - replace with custom impl or extension to add GrantedAuthorities -->
+                                                <!- Configurable - replace with custom impl or extension to add GrantedAuthorities ->
                                                 <bean class="edu.wisc.portlet.hrs.security.HrsPreAuthenticatedGrantedAuthoritiesUserDetailsService" />
                                             </property>
                                         </bean>
                                     </constructor-arg>
                                 </bean>
                             </property>
-                        </bean>
+                        </bean> -->
                     </list>
                 </constructor-arg>
             </bean>

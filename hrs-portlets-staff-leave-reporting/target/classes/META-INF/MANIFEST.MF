@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Built-By: sconnolly
+Build-Jdk: 1.7.0_25
+Specification-Title: HR System Portlets Staff Leave Reporting
+Specification-Version: 1.0.0-SNAPSHOT
+Specification-Vendor: Jasig
+Implementation-Title: HR System Portlets Staff Leave Reporting
+Implementation-Version: 1.0.0-SNAPSHOT
+Implementation-Vendor-Id: org.jasig.portlet.hrs
+Implementation-Vendor: Jasig
+Created-By: Maven Integration for Eclipse
+

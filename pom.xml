@@ -77,6 +77,8 @@
         <module>hrs-portlets-ps-impl</module>
         <module>hrs-portlets-cypress-impl</module>
         <module>hrs-portlets-bnsemail-impl</module>
+        <module>hrs-portlets-employee-time-reporting</module>
+        <module>hrs-portlets-staff-leave-reporting</module>
         <module>hrs-portlets-webapp</module>
     </modules>
     

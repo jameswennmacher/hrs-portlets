@@ -197,6 +197,62 @@
         </portlet-preferences>
     </portlet>
     
+    <portlet>
+        <portlet-name>EmployeeTimeReporting</portlet-name>
+        <portlet-class>org.jasig.springframework.web.portlet.context.ContribDispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/employee-time-reporting.xml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>Employee Time Reporting</title>
+            <short-title>Employee Time Reporting</short-title>
+        </portlet-info>
+        <portlet-preferences>
+            <preference>
+              <name>emplidUserAttributes</name>
+              <value>eduWisconsinHRSEmplID</value>
+              <value>eduWisconsinHRPersonID</value>
+              <value>wiscEduHRSEmplid</value>
+              <value>wisceduhrpersonid</value>
+              <value>legacywisceduhrpersonid</value>
+            </preference>
+        </portlet-preferences>
+    </portlet>
+    
+    <portlet>
+        <portlet-name>StaffLeaveReporting</portlet-name>
+        <portlet-class>org.jasig.springframework.web.portlet.context.ContribDispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/staff-leave-reporting.xml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>Staff Leave Reporting</title>
+            <short-title>Staff Leave Reporting</short-title>
+        </portlet-info>
+        <portlet-preferences>
+            <preference>
+              <name>emplidUserAttributes</name>
+              <value>eduWisconsinHRSEmplID</value>
+              <value>eduWisconsinHRPersonID</value>
+              <value>wiscEduHRSEmplid</value>
+              <value>wisceduhrpersonid</value>
+              <value>legacywisceduhrpersonid</value>
+            </preference>
+        </portlet-preferences>
+    </portlet>
+    
     <user-attribute>
         <name>eduWisconsinHRSEmplID</name>
     </user-attribute>
