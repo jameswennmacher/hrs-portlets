@@ -40,7 +40,7 @@ public interface StaffTimeReporting {
      * @param dateInPayPeriod date to get pay period data for (may be date within a pay period)
      * @return Summary of hours worked, sick, and vacation time during the pay period
      */
-    PayPeriodDailyLeaveTimeSummary getHoursReported(String emplId, LocalDate dateInPayPeriod);
+    PayPeriodDailyLeaveTimeSummary getLeaveHoursReported(String emplId, LocalDate dateInPayPeriod);
 
     /**
      * Updates the time entries for the employee.

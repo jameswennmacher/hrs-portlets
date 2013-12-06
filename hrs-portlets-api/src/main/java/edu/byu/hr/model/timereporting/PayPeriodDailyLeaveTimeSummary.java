@@ -20,6 +20,7 @@
 package edu.byu.hr.model.timereporting;
 
 import java.util.List;
+import java.util.Set;
 
 import org.joda.time.LocalDate;
 
@@ -32,13 +33,29 @@ import org.joda.time.LocalDate;
 public class PayPeriodDailyLeaveTimeSummary {
 
     /**
-     * Start of pay period.  End of pay period can be determined based on number of entries in DailyLeaveSummary.
+     * Start date of the pay period.
      */
     LocalDate payPeriodStart;
 
     /**
-     * List of leave information for each day in the pay period.  This list is fully populated for all days in
-     * the pay period.  Days with no time reported will have an entry with all 0s.
+     * End date of the pay period.
      */
-    List<DailyLeaveSummary> dailyHoursSummary;
+    LocalDate payPeriodEnd;
+
+    /**
+     * List of job descriptions available to the employee.
+     */
+    List<JobDescription> jobDescriptions;
+
+    /**
+     * Set of the job codes that are display-only, for example holidays, summaries of hours worked, or periods
+     * of time that the user is not allowed to enter or update data for.
+     */
+    Set<Integer> displayOnlyJobCodes;
+
+    /**
+     * List of leave information for each day in the pay period.  This list may not be fully populated for all days in
+     * the pay period.
+     */
+    List<TimePeriodEntry> timePeriodEntries;
 }
