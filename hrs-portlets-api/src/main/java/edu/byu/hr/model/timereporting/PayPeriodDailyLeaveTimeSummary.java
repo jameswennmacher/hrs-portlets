@@ -58,4 +58,57 @@ public class PayPeriodDailyLeaveTimeSummary {
      * the pay period.
      */
     List<TimePeriodEntry> timePeriodEntries;
+
+    public PayPeriodDailyLeaveTimeSummary() {
+    }
+
+    public PayPeriodDailyLeaveTimeSummary(LocalDate payPeriodStart, LocalDate payPeriodEnd,
+                                          List<JobDescription> jobDescriptions, Set<Integer> displayOnlyJobCodes,
+                                          List<TimePeriodEntry> timePeriodEntries) {
+        this.payPeriodStart = payPeriodStart;
+        this.payPeriodEnd = payPeriodEnd;
+        this.jobDescriptions = jobDescriptions;
+        this.displayOnlyJobCodes = displayOnlyJobCodes;
+        this.timePeriodEntries = timePeriodEntries;
+    }
+
+    public LocalDate getPayPeriodStart() {
+        return payPeriodStart;
+    }
+
+    public void setPayPeriodStart(LocalDate payPeriodStart) {
+        this.payPeriodStart = payPeriodStart;
+    }
+
+    public LocalDate getPayPeriodEnd() {
+        return payPeriodEnd;
+    }
+
+    public void setPayPeriodEnd(LocalDate payPeriodEnd) {
+        this.payPeriodEnd = payPeriodEnd;
+    }
+
+    public List<JobDescription> getJobDescriptions() {
+        return jobDescriptions;
+    }
+
+    public void setJobDescriptions(List<JobDescription> jobDescriptions) {
+        this.jobDescriptions = jobDescriptions;
+    }
+
+    public Set<Integer> getDisplayOnlyJobCodes() {
+        return displayOnlyJobCodes;
+    }
+
+    public void setDisplayOnlyJobCodes(Set<Integer> displayOnlyJobCodes) {
+        this.displayOnlyJobCodes = displayOnlyJobCodes;
+    }
+
+    public List<TimePeriodEntry> getTimePeriodEntries() {
+        return timePeriodEntries;
+    }
+
+    public void setTimePeriodEntries(List<TimePeriodEntry> timePeriodEntries) {
+        this.timePeriodEntries = timePeriodEntries;
+    }
 }

@@ -41,4 +41,37 @@ public class JobDescription {
      * Job description
      */
     String jobDescription;
+
+    public JobDescription() {
+    }
+
+    public JobDescription(int jobCode, String jobTitle, String jobDescription) {
+        this.jobCode = jobCode;
+        this.jobTitle = jobTitle;
+        this.jobDescription = jobDescription;
+    }
+
+    public int getJobCode() {
+        return jobCode;
+    }
+
+    public void setJobCode(int jobCode) {
+        this.jobCode = jobCode;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public String getJobDescription() {
+        return jobDescription;
+    }
+
+    public void setJobDescription(String jobDescription) {
+        this.jobDescription = jobDescription;
+    }
 }

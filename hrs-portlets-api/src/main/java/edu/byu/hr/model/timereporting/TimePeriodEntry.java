@@ -20,7 +20,6 @@
 package edu.byu.hr.model.timereporting;
 
 import org.joda.time.LocalDate;
-import org.joda.time.Period;
 
 /**
  * Description
@@ -29,7 +28,51 @@ import org.joda.time.Period;
  */
 
 public class TimePeriodEntry {
+    /**
+     * Date the time applies to.
+     */
     LocalDate date;
+
+    /**
+     * Job code to apply the time against.
+     */
     int jobCode;
-    Period timeEntered;
+
+    /**
+     * Time to apply as represented in hh:mm.
+     */
+    String timeEntered;
+
+    public TimePeriodEntry() {
+    }
+
+    public TimePeriodEntry(LocalDate date, int jobCode, String timeEntered) {
+        this.date = date;
+        this.jobCode = jobCode;
+        this.timeEntered = timeEntered;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public int getJobCode() {
+        return jobCode;
+    }
+
+    public void setJobCode(int jobCode) {
+        this.jobCode = jobCode;
+    }
+
+    public String getTimeEntered() {
+        return timeEntered;
+    }
+
+    public void setTimeEntered(String timeEntered) {
+        this.timeEntered = timeEntered;
+    }
 }

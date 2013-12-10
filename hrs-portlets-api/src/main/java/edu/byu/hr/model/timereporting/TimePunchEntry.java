@@ -19,7 +19,7 @@
 
 package edu.byu.hr.model.timereporting;
 
-import org.joda.time.Period;
+import java.io.Serializable;
 
 /**
  * Description
@@ -27,9 +27,55 @@ import org.joda.time.Period;
  * @author James Wennmacher, jwennmacher@unicon.net
  */
 
-public class TimePunchEntry {
+public class TimePunchEntry implements Serializable {
     JobDescription job;
-    Period weekTimeWorked;
-    Period payPeriodTimeWorked;
+    String weekTimeWorked;
+    String payPeriodTimeWorked;
     boolean punchedIn;
+
+    public TimePunchEntry() {
+    }
+
+    public TimePunchEntry(JobDescription job, String weekTimeWorked, String payPeriodTimeWorked) {
+        this(job, weekTimeWorked, payPeriodTimeWorked, false);
+    }
+
+    public TimePunchEntry(JobDescription job, String weekTimeWorked, String payPeriodTimeWorked, boolean punchedIn) {
+        this.job = job;
+        this.weekTimeWorked = weekTimeWorked;
+        this.payPeriodTimeWorked = payPeriodTimeWorked;
+        this.punchedIn = punchedIn;
+    }
+
+    public JobDescription getJob() {
+        return job;
+    }
+
+    public void setJob(JobDescription job) {
+        this.job = job;
+    }
+
+    public String getWeekTimeWorked() {
+        return weekTimeWorked;
+    }
+
+    public void setWeekTimeWorked(String weekTimeWorked) {
+        this.weekTimeWorked = weekTimeWorked;
+    }
+
+    public String getPayPeriodTimeWorked() {
+        return payPeriodTimeWorked;
+    }
+
+    public void setPayPeriodTimeWorked(String payPeriodTimeWorked) {
+        this.payPeriodTimeWorked = payPeriodTimeWorked;
+    }
+
+    public boolean isPunchedIn() {
+        return punchedIn;
+    }
+
+    public void setPunchedIn(boolean punchedIn) {
+        this.punchedIn = punchedIn;
+    }
 }

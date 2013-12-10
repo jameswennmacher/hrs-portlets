@@ -19,8 +19,6 @@
 
 package edu.byu.hr.model.timereporting;
 
-import org.joda.time.Period;
-
 /**
  * Description
  *
@@ -28,6 +26,36 @@ import org.joda.time.Period;
  */
 
 public class LeaveTimeBalance {
+    /**
+     * Job code.
+     */
     int jobCode;
-    Period timeAvailable;
+    /**
+     * Time available represented in hh:mm.
+     */
+    String timeAvailable;
+
+    public LeaveTimeBalance() {
+    }
+
+    public LeaveTimeBalance(int jobCode, String timeAvailable) {
+        this.jobCode = jobCode;
+        this.timeAvailable = timeAvailable;
+    }
+
+    public int getJobCode() {
+        return jobCode;
+    }
+
+    public void setJobCode(int jobCode) {
+        this.jobCode = jobCode;
+    }
+
+    public String getTimeAvailable() {
+        return timeAvailable;
+    }
+
+    public void setTimeAvailable(String timeAvailable) {
+        this.timeAvailable = timeAvailable;
+    }
 }
