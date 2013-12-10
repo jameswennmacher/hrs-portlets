@@ -21,6 +21,7 @@ package edu.byu.hr.dao.timereporting;
 
 import java.util.List;
 
+import edu.byu.hr.model.timereporting.LeaveTimeBalance;
 import edu.byu.hr.model.timereporting.PayPeriodDailyLeaveTimeSummary;
 import edu.byu.hr.model.timereporting.TimePeriodEntry;
 import org.joda.time.LocalDate;
@@ -41,6 +42,13 @@ public interface StaffTimeReporting {
      * @return Summary of hours worked, sick, and vacation time during the pay period
      */
     PayPeriodDailyLeaveTimeSummary getLeaveHoursReported(String emplId, LocalDate dateInPayPeriod);
+
+    /**
+     * Returns a list of current leave time (sick, vacation, etc) balances available to the employee.
+     * @param emplId Employee ID
+     * @return List of current leave times
+     */
+    List<LeaveTimeBalance> getLeaveBalance(String emplId);
 
     /**
      * Updates the time entries for the employee.
