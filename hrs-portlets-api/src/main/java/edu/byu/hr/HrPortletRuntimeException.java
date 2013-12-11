@@ -25,17 +25,17 @@ package edu.byu.hr;
  * @author James Wennmacher, jwennmacher@unicon.net
  */
 
-public class HrPortletsRuntimeException extends RuntimeException {
+public class HrPortletRuntimeException extends RuntimeException {
 
-    public HrPortletsRuntimeException(String message) {
+    public HrPortletRuntimeException(String message) {
         super(message);
     }
 
-    public HrPortletsRuntimeException(String message, Throwable cause) {
+    public HrPortletRuntimeException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public HrPortletsRuntimeException(Throwable cause) {
+    public HrPortletRuntimeException(Throwable cause) {
         super(cause);
     }
 }
