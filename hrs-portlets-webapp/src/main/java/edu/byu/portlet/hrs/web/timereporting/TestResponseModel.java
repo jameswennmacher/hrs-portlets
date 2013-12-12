@@ -1,4 +1,4 @@
-package edu.byu.portlet.hrs.web.employeetime;
+package edu.byu.portlet.hrs.web.timereporting;
 
 import java.io.Serializable;
 

@@ -17,33 +17,35 @@
  * under the License.
  */
 
-package edu.byu.hr.dao.timereporting;
+package edu.byu.hr.timereporting.service;
 
 import java.util.List;
+
+import javax.portlet.PortletRequest;
 
 import edu.byu.hr.model.timereporting.TimePunchEntry;
 
 /**
- * Dao to support employees punching in a time clock for jobs being worked.
+ * Description
  *
  * @author James Wennmacher, jwennmacher@unicon.net
  */
 
-public interface TimePunch {
+public interface StaffTimePunchService {
 
     /**
      * Returns a list of <code>TimePunchEntry</code> items for the employee.
      * @param emplId Employee ID
      * @return List of <code>TimePUnchEntry</code> items
      */
-    List<TimePunchEntry> getTimePunchEntries(String emplId);
+    List<TimePunchEntry> getTimePunchEntries(PortletRequest request, String emplId, boolean refresh);
 
     /**
      * Starts logging time for the employee to the indicated job code.
      * @param emplId
      * @param jobCode
      */
-    void punchInTimeClock (String emplId, int jobCode, String clientIP);
+    void punchInTimeClock (PortletRequest request, String emplId, int jobCode, String clientIP);
 
     /**
      * Stops logging time for the employee to the indicated job code.
@@ -51,5 +53,5 @@ public interface TimePunch {
      * @param jobCode
      * @param clientIP
      */
-    void punchOutTimeClock (String emplId, int jobCode, String clientIP);
+    void punchOutTimeClock (PortletRequest request, String emplId, int jobCode, String clientIP);
 }

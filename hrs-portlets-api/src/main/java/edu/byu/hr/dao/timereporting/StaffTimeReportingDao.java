@@ -32,7 +32,7 @@ import org.joda.time.LocalDate;
  * @author James Wennmacher, jwennmacher@unicon.net
  */
 
-public interface StaffTimeReporting {
+public interface StaffTimeReportingDao {
 
     /**
      * Returns summary of the hours worked and the sick and vacation time recorded for the employee during the

@@ -222,6 +222,14 @@
               <value>wisceduhrpersonid</value>
               <value>legacywisceduhrpersonid</value>
             </preference>
+            <preference>
+                <name>timesheetDeepLink</name>
+                <value>http://localhost:8080/enterTimesheetUrlHere</value>
+            </preference>
+            <preference>
+                <name>hoursDeepLink2</name>
+                <value>http://localhost:8080/enterAcaHoursUrlHere</value>
+            </preference>
         </portlet-preferences>
     </portlet>
     
