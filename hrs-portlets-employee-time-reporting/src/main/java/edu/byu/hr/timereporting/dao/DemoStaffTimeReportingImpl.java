@@ -96,6 +96,18 @@ public class DemoStaffTimeReportingImpl implements StaffTimeReportingDao {
             leaveBalances.add(new LeaveTimeBalance(VACATION, "64:10"));
             emplLeaveBalances.put(emplId, leaveBalances);
         }
+        if (emplLeaveEntries.get(emplId) == null) {
+            LocalDate startDate = calculatePayperiodStartDate(new LocalDate());
+            List<TimePeriodEntry> items = new ArrayList<TimePeriodEntry>();
+            for (int i = 2; i < DAYS_IN_PAY_PERIOD; i++) {
+                // Skip Sat and Sun since they by default don't display
+                LocalDate date = startDate.plusDays(i);
+                if (date.getDayOfWeek() < 6) {
+                    items.add(new TimePeriodEntry(date, WORKED, date.getDayOfWeek() + ":15"));
+                }
+            }
+            emplLeaveEntries.put(emplId, items);
+        }
     }
 
     private LocalDate calculatePayperiodStartDate(LocalDate date) {
@@ -108,34 +120,28 @@ public class DemoStaffTimeReportingImpl implements StaffTimeReportingDao {
 
         LocalDate startDate = calculatePayperiodStartDate(dateInPayPeriod);
 
-        List<TimePeriodEntry> leaveEntries = emplLeaveEntries.get(emplId);
-
         PayPeriodDailyLeaveTimeSummary summary = new PayPeriodDailyLeaveTimeSummary();
         summary.setPayPeriodStart(startDate);
         summary.setPayPeriodEnd(startDate.plusDays(DAYS_IN_PAY_PERIOD));
         summary.setJobDescriptions(jobDescriptions);
         summary.setDisplayOnlyJobCodes(uneditableJobs);
-
-        summary.setTimePeriodEntries(leaveEntries != null ? leaveEntries : new ArrayList<TimePeriodEntry>());
-
-        // todo temporary
-        List<TimePeriodEntry> items = new ArrayList<TimePeriodEntry>();
-        for (int i = 0; i < 14; i = i + 2) {
-            for (JobDescription jobDescription : jobDescriptions) {
-                items.add(new TimePeriodEntry(startDate.plusDays(i), jobDescription.getJobCode(), "1:15"));
-            }
-        }
-        summary.setTimePeriodEntries(items);
+        summary.setTimePeriodEntries(getTimeEntries(emplId, startDate));
 
         return summary;
+    }
+
+    private List<TimePeriodEntry> getTimeEntries (String emplId, LocalDate startDate) {
+        // todo get entries for a particular date range
+        List<TimePeriodEntry> entries = emplLeaveEntries.get(emplId);
+        return entries;
     }
 
     @Override
     public void updateLeaveTimeReported(String emplId, List<TimePeriodEntry> updatedTimesheet) {
         initializeForEmployeeIfNeeded(emplId);
         log.debug("Updating leave entries for employee ID {}", emplId);
+        // todo Currently just replaces all current entries.
         emplLeaveEntries.put(emplId, updatedTimesheet);
-        // todo Currently only replaces current entries.
     }
 
     @Override

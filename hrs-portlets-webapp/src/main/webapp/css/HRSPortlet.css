@@ -16,7 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- 
+
+@import url("byu.css");
+
+
  p.padded-paragraph 
  {
  	padding-top: 1em; 

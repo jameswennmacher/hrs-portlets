@@ -41,15 +41,27 @@ public class TimePeriodEntry {
     /**
      * Time to apply as represented in hh:mm.
      */
-    String timeEntered;
+    Duration timeEntered;
 
     public TimePeriodEntry() {
     }
 
-    public TimePeriodEntry(LocalDate date, int jobCode, String timeEntered) {
+    public TimePeriodEntry(LocalDate date, int jobCode, Duration timeEntered) {
         this.date = date;
         this.jobCode = jobCode;
         this.timeEntered = timeEntered;
+    }
+
+    public TimePeriodEntry(LocalDate date, int jobCode, int minutes) {
+        this.date = date;
+        this.jobCode = jobCode;
+        this.timeEntered = new Duration(minutes);
+    }
+
+    public TimePeriodEntry(LocalDate date, int jobCode, String hhmm) {
+        this.date = date;
+        this.jobCode = jobCode;
+        this.timeEntered = new Duration(hhmm);
     }
 
     public LocalDate getDate() {
@@ -68,11 +80,11 @@ public class TimePeriodEntry {
         this.jobCode = jobCode;
     }
 
-    public String getTimeEntered() {
+    public Duration getTimeEntered() {
         return timeEntered;
     }
 
-    public void setTimeEntered(String timeEntered) {
+    public void setTimeEntered(Duration timeEntered) {
         this.timeEntered = timeEntered;
     }
 }

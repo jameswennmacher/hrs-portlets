@@ -31,16 +31,21 @@ public class LeaveTimeBalance {
      */
     int jobCode;
     /**
-     * Time available represented in hh:mm.
+     * Time available
      */
-    String timeAvailable;
+    Duration timeAvailable;
 
     public LeaveTimeBalance() {
     }
 
+    public LeaveTimeBalance(int jobCode, int minutes) {
+        this.jobCode = jobCode;
+        this.timeAvailable = new Duration(minutes);
+    }
+
     public LeaveTimeBalance(int jobCode, String timeAvailable) {
         this.jobCode = jobCode;
-        this.timeAvailable = timeAvailable;
+        this.timeAvailable = new Duration(timeAvailable);
     }
 
     public int getJobCode() {
@@ -51,11 +56,11 @@ public class LeaveTimeBalance {
         this.jobCode = jobCode;
     }
 
-    public String getTimeAvailable() {
+    public Duration getTimeAvailable() {
         return timeAvailable;
     }
 
-    public void setTimeAvailable(String timeAvailable) {
+    public void setTimeAvailable(Duration timeAvailable) {
         this.timeAvailable = timeAvailable;
     }
 }

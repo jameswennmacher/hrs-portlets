@@ -20,6 +20,7 @@
 package edu.byu.hr.model.timereporting;
 
 import edu.byu.hr.HrPortletRuntimeException;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Description
@@ -30,25 +31,32 @@ import edu.byu.hr.HrPortletRuntimeException;
 public class Duration {
     int minutes;
 
-    Duration() {
+    public Duration() {
     }
 
-    Duration (int minutes) {
+    public Duration (int minutes) {
         this.minutes = minutes;
     }
 
-    Duration (String hhmm) {
-        String[] values = hhmm.split(":");
-        if (values.length == 2) {
-            try {
-                int hours = Integer.parseInt(values[0]);
-                int minutes = Integer.parseInt(values[1]);
-                minutes = hours * 60 + minutes;
-            } catch (NumberFormatException e) {
-                // fall through to error.
+    //todo Change from hard-coded strategy to local-based formatting, maybe using some JodaTime converters
+    public Duration (String hhmm) {
+        if (StringUtils.isBlank(hhmm)) {
+            // Be tolerant, consider empty or null string as 0.
+            this.minutes = 0;
+        } else {
+            String[] values = hhmm.split(":");
+            if (values.length == 2) {
+                try {
+                    int hours = Integer.parseInt(values[0]);
+                    int minutes = Integer.parseInt(values[1]);
+                    this.minutes = hours * 60 + minutes;
+                } catch (NumberFormatException e) {
+                    throw new HrPortletRuntimeException("Invalid Time entry not HH:MM, was:" + hhmm);
+                }
+            } else {
+                throw new HrPortletRuntimeException("Invalid Time entry not HH:MM, was:" + hhmm);
             }
         }
-        throw new HrPortletRuntimeException("Invalid Time entry not HH:MM, was '" + hhmm);
     }
 
     public int getMinutes() {
@@ -57,6 +65,20 @@ public class Duration {
 
     public void setMinutes(int minutes) {
         this.minutes = minutes;
+    }
+
+    //todo Change from hard-coded strategy to local-based formatting, maybe using some JodaTime converters
+    public String getHoursAndMinutes() {
+        return asHoursAndMinutes(minutes);
+    }
+
+    private static String getDoubleDigit(int number) {
+        return (number < 10) ? "0"+number : Integer.toString(number);
+    }
+
+    public static String asHoursAndMinutes(int minutes) {
+        int hours = minutes / 60;
+        return getDoubleDigit(hours) + ":" + getDoubleDigit(minutes % 60);
     }
 
 }

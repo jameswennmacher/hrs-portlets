@@ -258,6 +258,18 @@
               <value>wisceduhrpersonid</value>
               <value>legacywisceduhrpersonid</value>
             </preference>
+            <preference>
+                <name>timesheetDeepLink</name>
+                <value>http://localhost:8080/enterTimesheetUrlHere</value>
+            </preference>
+            <preference>
+                <name>leaveHistory</name>
+                <value>http://localhost:8080/enterLeaveHistoryUrlHere</value>
+            </preference>
+            <preference>
+                <name>blankZeroTimeValues</name>
+                <value>true</value>
+            </preference>
         </portlet-preferences>
     </portlet>
     

@@ -25,10 +25,10 @@ import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 @Controller
 @RequestMapping("VIEW")
 public class StaffTimePunchController {
-    Logger log = LoggerFactory.getLogger(this.getClass());
-
     public static final String ACAHOURS_DEEP_LINK = "hoursDeepLink2";
     public static final String TIMESHEET_DEEP_LINK = "timesheetDeepLink";
+
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     StaffTimePunchService service;
@@ -70,22 +70,22 @@ public class StaffTimePunchController {
     }
 
     @ActionMapping(params = "action=punchOut")
-    public void punchOut(ActionRequest request, @RequestParam("jobCode") final int jobCode) {
+    public void punchOut(ActionRequest request, ActionResponse response, @RequestParam("jobCode") final int jobCode) {
 //        final String emplId = PrimaryAttributeUtils.getPrimaryId();
         final String emplId = request.getRemoteUser();
         log.debug("Punching out employee ID {} for job code {}", emplId, jobCode);
 
         service.punchOutTimeClock(request, emplId, jobCode, "127.0.0.1");
+        response.setRenderParameter("message", "You have been punched out");
     }
 
-    @ResourceMapping(value = "punchIn")
-    public String punchIn(ResourceRequest request, ModelMap modelMap, @RequestParam("jobCode") final int jobCode) {
+    @ActionMapping(params = "action=punchIn")
+    public void punchIn(ActionRequest request, ActionResponse response, @RequestParam("jobCode") final int jobCode) {
 //        final String emplId = PrimaryAttributeUtils.getPrimaryId();
         final String emplId = request.getRemoteUser();
         log.debug("Punching in employee ID {} for job code {}", emplId, jobCode);
 
         service.punchInTimeClock(request, emplId, jobCode, "127.0.0.1");
-        modelMap.addAttribute("success", true);
-        return "jsonView";
+        response.setRenderParameter("message", "You have been punched in");
     }
 }
