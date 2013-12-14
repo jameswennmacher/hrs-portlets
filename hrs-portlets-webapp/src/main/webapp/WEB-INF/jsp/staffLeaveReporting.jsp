@@ -1,5 +1,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
+<%@ taglib prefix="ut" uri="http://my.wisc.edu/HRSPortlets/ut"%>
 <c:set var="n"><portlet:namespace/></c:set>
 
 Staff Leave Reporting!!
@@ -13,19 +14,28 @@ Staff Leave Reporting!!
     <c:forEach var="tableDates" items="${listOfTableDates}">
         <table>
             <tr>
-                <td><spring:message code="leave.reporting.dow.type"/></td>
+                <td><spring:message code="leave.reporting.type"/></td>
                 <c:forEach var="date" items="${tableDates}">
                     <td><spring:message code="leave.reporting.dow.${date.dayOfWeek}"/>&nbsp${date.dayOfMonth}</td>
                 </c:forEach>
-                <td>Total</td>
+                <td><spring:message code="leave.reporting.total"/></td>
             </tr>
             <c:forEach var="jobDescription" items="${summary.jobDescriptions}">
                 <tr>
-                    <td>${jobDescription.jobTitle}</td>
+                    <td><c:out value="${jobDescription.jobTitle}"/></td>
                     <c:forEach var="date" items="${tableDates}">
                         <c:set var="jobCodeAndDate">${jobDescription.jobCode}${sep}${date}</c:set>
                         <c:set var="inputName">${prefix}${sep}${jobDescription.jobCode}${sep}${date}${sep}${n}</c:set>
-                        <td><input type="text" id="${inputName}" name="${inputName}" value="${entriesMap[jobCodeAndDate].hoursAndMinutes}"/></td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${ut:contains(summary.displayOnlyJobCodes,jobDescription.jobCode)}">
+                                    <c:out value="${entriesMap[jobCodeAndDate].hoursAndMinutes}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="text" id="${inputName}" name="${inputName}" value="${entriesMap[jobCodeAndDate].hoursAndMinutes}"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                     </c:forEach>
                     <td>${jobTotals[jobDescription.jobCode]}</td>
                 </tr>
