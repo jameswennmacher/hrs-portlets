@@ -12,5 +12,12 @@
         "jobDescription": "Teaching Assistant Grade ST1",
         "weekTime": 601,
         "periodTime": 735
+    },
+    {
+        "jobId": 125,
+        "jobTitle": "Portal Administrator",
+        "jobDescription": "Portal Administrator Grade IT8",
+        "weekTime": 561,
+        "periodTime": 736
     }
 ]

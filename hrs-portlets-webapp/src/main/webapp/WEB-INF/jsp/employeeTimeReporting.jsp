@@ -11,6 +11,9 @@
 </portlet:actionURL>
 
 <div class="time-entry bootstrap-styles">
+    <c:if test="${not empty errorMessage}">
+        <div class="alert alert-danger"><c:out value="${errorMessage}"/></div>
+    </c:if>
     <div class="time-entry-totals">
         <span class="week-total">Week Total: <span>${time:toHhMm(weekTotal)}</span> </span>
         <span class="pay-period-total">Pay Period Total: <span>${time:toHhMm(payPeriodTotal)}</span></span>

@@ -7,13 +7,14 @@ import javax.portlet.ActionResponse;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 
+import edu.byu.hr.HrPortletRuntimeException;
 import edu.byu.hr.model.timereporting.TimePunchEntry;
 import edu.byu.hr.timereporting.service.StaffTimePunchService;
-import edu.byu.hr.timereporting.util.TimeCalculations;
-import org.joda.time.Period;
+import edu.wisc.web.security.portlet.primaryattr.PrimaryAttributeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,10 +27,16 @@ public class StaffTimePunchController {
     public static final String ACAHOURS_DEEP_LINK = "hoursDeepLink2";
     public static final String TIMESHEET_DEEP_LINK = "timesheetDeepLink";
 
+    private static final String PUNCHED_IN_MESSAGE="time.reporting.punched.in";
+    private static final String PUNCHED_OUT_MESSAGE="time.reporting.punched.out";
+
     Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     StaffTimePunchService service;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @RequestMapping(params="action=refresh")
     public void refresh(ActionRequest request, ActionResponse response) {
@@ -42,7 +49,9 @@ public class StaffTimePunchController {
     public String viewEmployeeTimeReportingInfo(ModelMap model, PortletRequest request,
                                                 @RequestParam(value = "refresh", required = false) boolean refresh) {
 //        final String emplId = PrimaryAttributeUtils.getPrimaryId();
-          final String emplId = request.getRemoteUser();
+        final String emplIdTest = PrimaryAttributeUtils.getPrimaryId();
+
+        final String emplId = request.getRemoteUser();
         log.debug("Rendering time punch for employee ID {}, refresh={}", emplId, refresh);
         List<TimePunchEntry> jobEntries = service.getTimePunchEntries(request, emplId, refresh);
         model.addAttribute("jobEntries", jobEntries);
@@ -73,8 +82,13 @@ public class StaffTimePunchController {
         final String emplId = request.getRemoteUser();
         log.debug("Punching out employee ID {} for job code {}", emplId, jobCode);
 
-        service.punchOutTimeClock(request, emplId, jobCode, "127.0.0.1");
-        response.setRenderParameter("message", "You have been punched out");
+        try {
+            service.punchOutTimeClock(request, emplId, jobCode, request.getProperty("REMOTE_ADDR"));
+            response.setRenderParameter("message", messageSource.getMessage(PUNCHED_OUT_MESSAGE, null, "You have been punched out", request.getLocale()));
+        } catch (HrPortletRuntimeException e) {
+            log.debug("Punch Out action failed for employee {} job code {}", emplId, jobCode, e);
+            response.setRenderParameter("errorMessage", e.getMessage());
+        }
     }
 
     @ActionMapping(params = "action=punchIn")
@@ -83,7 +97,12 @@ public class StaffTimePunchController {
         final String emplId = request.getRemoteUser();
         log.debug("Punching in employee ID {} for job code {}", emplId, jobCode);
 
-        service.punchInTimeClock(request, emplId, jobCode, "127.0.0.1");
-        response.setRenderParameter("message", "You have been punched in");
+        try {
+            service.punchInTimeClock(request, emplId, jobCode, request.getProperty("REMOTE_ADDR"));
+            response.setRenderParameter("message", messageSource.getMessage(PUNCHED_IN_MESSAGE, null, "You have been punched in", request.getLocale()));
+        } catch (HrPortletRuntimeException e) {
+            log.debug("Punch in action failed for employee {} job code {}", emplId, jobCode, e);
+            response.setRenderParameter("errorMessage", e.getMessage());
+        }
     }
 }

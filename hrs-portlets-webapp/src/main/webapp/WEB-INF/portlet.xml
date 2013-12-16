@@ -43,11 +43,12 @@
         <portlet-preferences>
             <preference>
               <name>emplidUserAttributes</name>
-              <value>eduWisconsinHRSEmplID</value>
-              <value>eduWisconsinHRPersonID</value>
-              <value>wiscEduHRSEmplid</value>
-              <value>wisceduhrpersonid</value>
-              <value>legacywisceduhrpersonid</value>
+                <!--<value>eduWisconsinHRSEmplID</value>-->
+                <!--<value>eduWisconsinHRPersonID</value>-->
+                <!--<value>wiscEduHRSEmplid</value>-->
+                <!--<value>wisceduhrpersonid</value>-->
+                <!--<value>legacywisceduhrpersonid</value>-->
+                <value>user.login.id</value>
             </preference>
         </portlet-preferences>
     </portlet>
@@ -71,11 +72,12 @@
         <portlet-preferences>
             <preference>
               <name>emplidUserAttributes</name>
-              <value>eduWisconsinHRSEmplID</value>
-              <value>eduWisconsinHRPersonID</value>
-              <value>wiscEduHRSEmplid</value>
-              <value>wisceduhrpersonid</value>
-              <value>legacywisceduhrpersonid</value>
+                <!--<value>eduWisconsinHRSEmplID</value>-->
+                <!--<value>eduWisconsinHRPersonID</value>-->
+                <!--<value>wiscEduHRSEmplid</value>-->
+                <!--<value>wisceduhrpersonid</value>-->
+                <!--<value>legacywisceduhrpersonid</value>-->
+                <value>user.login.id</value>
             </preference>
         </portlet-preferences>
     </portlet>
@@ -99,11 +101,12 @@
         <portlet-preferences>
             <preference>
               <name>emplidUserAttributes</name>
-              <value>eduWisconsinHRSEmplID</value>
-              <value>eduWisconsinHRPersonID</value>
-              <value>wiscEduHRSEmplid</value>
-              <value>wisceduhrpersonid</value>
-              <value>legacywisceduhrpersonid</value>
+                <!--<value>eduWisconsinHRSEmplID</value>-->
+                <!--<value>eduWisconsinHRPersonID</value>-->
+                <!--<value>wiscEduHRSEmplid</value>-->
+                <!--<value>wisceduhrpersonid</value>-->
+                <!--<value>legacywisceduhrpersonid</value>-->
+                <value>user.login.id</value>
             </preference>
         </portlet-preferences>
     </portlet>
@@ -127,11 +130,12 @@
         <portlet-preferences>
             <preference>
               <name>emplidUserAttributes</name>
-              <value>eduWisconsinHRSEmplID</value>
-              <value>eduWisconsinHRPersonID</value>
-              <value>wiscEduHRSEmplid</value>
-              <value>wisceduhrpersonid</value>
-              <value>legacywisceduhrpersonid</value>
+                <!--<value>eduWisconsinHRSEmplID</value>-->
+                <!--<value>eduWisconsinHRPersonID</value>-->
+                <!--<value>wiscEduHRSEmplid</value>-->
+                <!--<value>wisceduhrpersonid</value>-->
+                <!--<value>legacywisceduhrpersonid</value>-->
+                <value>user.login.id</value>
             </preference>
         </portlet-preferences>
     </portlet>
@@ -160,11 +164,12 @@
             </preference>
             <preference>
               <name>emplidUserAttributes</name>
-              <value>eduWisconsinHRSEmplID</value>
-              <value>eduWisconsinHRPersonID</value>
-              <value>wiscEduHRSEmplid</value>
-              <value>wisceduhrpersonid</value>
-              <value>legacywisceduhrpersonid</value>
+                <!--<value>eduWisconsinHRSEmplID</value>-->
+                <!--<value>eduWisconsinHRPersonID</value>-->
+                <!--<value>wiscEduHRSEmplid</value>-->
+                <!--<value>wisceduhrpersonid</value>-->
+                <!--<value>legacywisceduhrpersonid</value>-->
+                <value>user.login.id</value>
             </preference>
         </portlet-preferences>
     </portlet>
@@ -188,11 +193,12 @@
         <portlet-preferences>
             <preference>
               <name>emplidUserAttributes</name>
-              <value>eduWisconsinHRSEmplID</value>
-              <value>eduWisconsinHRPersonID</value>
-              <value>wiscEduHRSEmplid</value>
-              <value>wisceduhrpersonid</value>
-              <value>legacywisceduhrpersonid</value>
+                <!--<value>eduWisconsinHRSEmplID</value>-->
+                <!--<value>eduWisconsinHRPersonID</value>-->
+                <!--<value>wiscEduHRSEmplid</value>-->
+                <!--<value>wisceduhrpersonid</value>-->
+                <!--<value>legacywisceduhrpersonid</value>-->
+                <value>user.login.id</value>
             </preference>
         </portlet-preferences>
     </portlet>
@@ -216,11 +222,12 @@
         <portlet-preferences>
             <preference>
               <name>emplidUserAttributes</name>
-              <value>eduWisconsinHRSEmplID</value>
-              <value>eduWisconsinHRPersonID</value>
-              <value>wiscEduHRSEmplid</value>
-              <value>wisceduhrpersonid</value>
-              <value>legacywisceduhrpersonid</value>
+              <!--<value>eduWisconsinHRSEmplID</value>-->
+              <!--<value>eduWisconsinHRPersonID</value>-->
+              <!--<value>wiscEduHRSEmplid</value>-->
+              <!--<value>wisceduhrpersonid</value>-->
+              <!--<value>legacywisceduhrpersonid</value>-->
+                <value>user.login.id</value>
             </preference>
             <preference>
                 <name>timesheetDeepLink</name>
@@ -252,11 +259,12 @@
         <portlet-preferences>
             <preference>
               <name>emplidUserAttributes</name>
-              <value>eduWisconsinHRSEmplID</value>
-              <value>eduWisconsinHRPersonID</value>
-              <value>wiscEduHRSEmplid</value>
-              <value>wisceduhrpersonid</value>
-              <value>legacywisceduhrpersonid</value>
+                <!--<value>eduWisconsinHRSEmplID</value>-->
+                <!--<value>eduWisconsinHRPersonID</value>-->
+                <!--<value>wiscEduHRSEmplid</value>-->
+                <!--<value>wisceduhrpersonid</value>-->
+                <!--<value>legacywisceduhrpersonid</value>-->
+                <value>user.login.id</value>
             </preference>
             <preference>
                 <name>timesheetDeepLink</name>
@@ -272,7 +280,12 @@
             </preference>
         </portlet-preferences>
     </portlet>
-    
+
+    <user-attribute>
+        <description>Username attribute name for uPortal user</description>
+        <name>user.login.id</name>
+    </user-attribute>
+
     <user-attribute>
         <name>eduWisconsinHRSEmplID</name>
     </user-attribute>

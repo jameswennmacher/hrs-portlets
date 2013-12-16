@@ -6,8 +6,6 @@
 <portlet:renderURL var="previousPayPeriod"><portlet:param name="payDate" value="${previousPayDate}"/></portlet:renderURL>
 <portlet:renderURL var="nextPayPeriod"><portlet:param name="payDate" value="${nextPayDate}"/></portlet:renderURL>
 
-Staff Leave Reporting!!
-
 <div>
     <a href="${timesheetLink}">Timesheet</a>
     <a href="${leaveHistoryLink}">Leave History</a>

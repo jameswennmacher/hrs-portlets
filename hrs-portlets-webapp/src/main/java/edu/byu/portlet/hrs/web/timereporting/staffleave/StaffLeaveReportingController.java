@@ -3,10 +3,8 @@ package edu.byu.portlet.hrs.web.timereporting.staffleave;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
@@ -207,7 +205,7 @@ public class StaffLeaveReportingController {
     }
 
     @ResourceMapping(value="updateLeave")
-    public String updateLeave(ResourceRequest request, ResourceResponse response, ModelMap map) {
+    public String updateLeave(ResourceRequest request, ResourceResponse response, ModelMap model) {
 //        final String emplId = PrimaryAttributeUtils.getPrimaryId();
         final String emplId = request.getRemoteUser();
 
@@ -241,10 +239,10 @@ public class StaffLeaveReportingController {
             }
         }
         if (errorMessage == null && invalidFields.size() == 0) {
-            map.addAttribute("success", true);
+            model.addAttribute("success", true);
         } else {
-            map.addAttribute("error_message", errorMessage);
-            map.addAttribute("fields", invalidFields);
+            model.addAttribute("error_message", errorMessage);
+            model.addAttribute("fields", invalidFields);
         }
         return "jsonView";
     }
