@@ -1,7 +1,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
-
+<%@ taglib prefix="time" uri="http://edu.byu.portlet.hrs/HRSPortlets/time"%>
 
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
@@ -12,8 +12,8 @@
 
 <div class="time-entry bootstrap-styles">
     <div class="time-entry-totals">
-        <span class="week-total">Week Total: <span>20:10</span> </span>
-        <span class="pay-period-total">Pay Period Total: <span>20:10</span></span>
+        <span class="week-total">Week Total: <span>${time:toHhMm(weekTotal)}</span> </span>
+        <span class="pay-period-total">Pay Period Total: <span>${time:toHhMm(payPeriodTotal)}</span></span>
     </div>
     <table class="table table-bordered table-striped">
         <thead>
@@ -44,8 +44,8 @@
             </c:otherwise>
         </c:choose>
                 <td title="(${timePunchEntry.job.jobCode}) ${timePunchEntry.job.jobDescription}">${timePunchEntry.job.jobTitle}</td>
-                <td>${timePunchEntry.weekTimeWorked}</td>
-                <td>${timePunchEntry.payPeriodTimeWorked}</td>
+                <td>${time:toHhMm(timePunchEntry.weekTimeWorked)}</td>
+                <td>${time:toHhMm(timePunchEntry.payPeriodTimeWorked)}</td>
         <c:choose>
             <c:when test="${timePunchEntry.punchedIn}">
                 <td>

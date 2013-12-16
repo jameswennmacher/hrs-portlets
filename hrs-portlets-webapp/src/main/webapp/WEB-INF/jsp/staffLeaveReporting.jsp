@@ -1,17 +1,22 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <%@ taglib prefix="ut" uri="http://my.wisc.edu/HRSPortlets/ut"%>
+<%@ taglib prefix="time" uri="http://edu.byu.portlet.hrs/HRSPortlets/time"%>
 <c:set var="n"><portlet:namespace/></c:set>
+<portlet:renderURL var="previousPayPeriod"><portlet:param name="payDate" value="${previousPayDate}"/></portlet:renderURL>
+<portlet:renderURL var="nextPayPeriod"><portlet:param name="payDate" value="${nextPayDate}"/></portlet:renderURL>
 
 Staff Leave Reporting!!
 
 <div>
     <a href="${timesheetLink}">Timesheet</a>
     <a href="${leaveHistoryLink}">Leave History</a>
+    <a href="${previousPayPeriod}">Previous</a>
+    <a href="${nextPayPeriod}">Next</a>
 </div>
 
 <form action='<portlet:resourceURL id="updateLeave"/>' method="POST">
-    <c:forEach var="tableDates" items="${listOfTableDates}">
+    <c:forEach var="tableDates" items="${listOfTableDates}" varStatus="tableNumber">
         <table>
             <tr>
                 <td><spring:message code="leave.reporting.type"/></td>
@@ -29,21 +34,21 @@ Staff Leave Reporting!!
                         <td>
                             <c:choose>
                                 <c:when test="${ut:contains(summary.displayOnlyJobCodes,jobDescription.jobCode)}">
-                                    <c:out value="${entriesMap[jobCodeAndDate].hoursAndMinutes}"/>
+                                    <c:out value="${time:toHhMm(entriesMap[jobCodeAndDate])}"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="text" id="${inputName}" name="${inputName}" value="${entriesMap[jobCodeAndDate].hoursAndMinutes}"/>
+                                    <input type="text" id="${inputName}" name="${inputName}" value="${time:toHhMm(entriesMap[jobCodeAndDate])}"/>
                                 </c:otherwise>
                             </c:choose>
                         </td>
                     </c:forEach>
-                    <td>${jobTotals[jobDescription.jobCode]}</td>
+                    <td>${time:toHhMm(perTableJobCodeTotals[tableNumber.index][jobDescription.jobCode])}</td>
                 </tr>
             </c:forEach>
             <tr>
                 <td>Total</td>
                 <c:forEach var="date" items="${tableDates}">
-                    <td>${dayTotals[date]}</td>
+                    <td>${time:toHhMm(dayTotals[date])}</td>
                 </c:forEach>
             </tr>
         </table>
@@ -59,20 +64,36 @@ Staff Leave Reporting!!
         <tr>
             <td>Start balance</td>
             <c:forEach var="jobDescription" items="${summary.jobDescriptions}">
-                <td>${leaveStartBalances[jobDescription.jobCode].hoursAndMinutes}</td>
+                <!-- Display values only for leave job codes and not worked time -->
+                <c:choose>
+                    <c:when test="${not empty leaveStartBalances[jobDescription.jobCode]}">
+                        <td>${time:toHhMm(leaveStartBalances[jobDescription.jobCode])}</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td></td>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
         </tr>
         <tr>
             <td>Reported this period</td>
 
             <c:forEach var="jobDescription" items="${summary.jobDescriptions}">
-                <td>${jobTotals[jobDescription.jobCode]}</td>
+                <td>${time:toHhMm(jobTotals[jobDescription.jobCode])}</td>
             </c:forEach>
         </tr>
         <tr>
             <td>End balance</td>
+            <!-- Display values only for leave job codes and not worked time -->
             <c:forEach var="jobDescription" items="${summary.jobDescriptions}">
-                <td>${leaveEndBalances[jobDescription.jobCode].hoursAndMinutes}</td>
+                <c:choose>
+                    <c:when test="${not empty leaveEndBalances[jobDescription.jobCode]}">
+                        <td>${time:toHhMm(leaveEndBalances[jobDescription.jobCode])}</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td></td>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
         </tr>
     </table>

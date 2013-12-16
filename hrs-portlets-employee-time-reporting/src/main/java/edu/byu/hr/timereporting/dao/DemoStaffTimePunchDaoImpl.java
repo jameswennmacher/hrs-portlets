@@ -30,11 +30,9 @@ import edu.byu.hr.HrPortletRuntimeException;
 import edu.byu.hr.dao.timereporting.StaffTimePunchDao;
 import edu.byu.hr.model.timereporting.JobDescription;
 import edu.byu.hr.model.timereporting.TimePunchEntry;
-import edu.byu.hr.timereporting.util.TimeCalculations;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
-import org.joda.time.Period;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -46,7 +44,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class DemoStaffTimePunchDaoImpl implements StaffTimePunchDao {
-    private static final long PUNCH_OUT_INCREMENT = 1000*60*5;  // 5 MINUTES
+    private static final int PUNCH_OUT_INCREMENT = 5;  // 5 MINUTES
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private String jsonDataDir = "/data/demo/timepunch/";
@@ -100,10 +98,10 @@ public class DemoStaffTimePunchDaoImpl implements StaffTimePunchDao {
                     int jobCode = timePunchEntry.path("jobId").getIntValue();
                     String jobTitle = timePunchEntry.path("jobTitle").getTextValue();
                     String jobDescription = timePunchEntry.path("jobDescription").getTextValue();
-                    String weekTime = timePunchEntry.path("weekTime").getTextValue();
-                    String periodTime = timePunchEntry.path("periodTime").getTextValue();
+                    int weekTime = timePunchEntry.path("weekTime").asInt();
+                    int periodTime = timePunchEntry.path("periodTime").asInt();
                     JobDescription job = new JobDescription(jobCode, jobTitle, jobDescription);
-                    timePunchData.add(new TimePunchEntry(job, weekTime, periodTime));
+                    timePunchData.add(new TimePunchEntry(job, weekTime, periodTime, false));
                 }
 
             } catch (Exception e) {
@@ -157,12 +155,8 @@ public class DemoStaffTimePunchDaoImpl implements StaffTimePunchDao {
             for (TimePunchEntry entry : entries) {
                 if (entry.getJob().getJobCode() == jobCode) {
                     // We don't need to track real time; just add an increment
-                    Period timeDelta = new Period(PUNCH_OUT_INCREMENT);
-                    Period newTotal = TimeCalculations.addTime(timeDelta, entry.getWeekTimeWorked());
-                    entry.setWeekTimeWorked(TimeCalculations.convertPeriodToHHMM(newTotal.normalizedStandard()));
-
-                    newTotal = TimeCalculations.addTime(timeDelta, entry.getPayPeriodTimeWorked());
-                    entry.setPayPeriodTimeWorked(TimeCalculations.convertPeriodToHHMM(newTotal.normalizedStandard()));
+                    entry.setWeekTimeWorked(entry.getWeekTimeWorked() + PUNCH_OUT_INCREMENT);
+                    entry.setPayPeriodTimeWorked(entry.getPayPeriodTimeWorked() + PUNCH_OUT_INCREMENT);
                 }
             }
             // Zero out the punch-in time

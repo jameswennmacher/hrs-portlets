@@ -58,8 +58,8 @@ public class DemoStaffTimePunchDaoImplTest {
         assertEquals("Entry 0 job code wrong", 123, entry.getJob().getJobCode());
         assertEquals("Entry 0 job title wrong", "Computer Technician", entry.getJob().getJobTitle());
         assertEquals("Entry 0 job description wrong", "Computer Technician Grade IT5", entry.getJob().getJobDescription());
-        assertEquals("Entry 0 week time worked wrong", "20:50", entry.getWeekTimeWorked());
-        assertEquals("Entry 0 pay period time worked wrong", "25:55", entry.getPayPeriodTimeWorked());
+        assertEquals("Entry 0 week time worked wrong", 1250, entry.getWeekTimeWorked());
+        assertEquals("Entry 0 pay period time worked wrong", 1555, entry.getPayPeriodTimeWorked());
     }
 
     @Test
@@ -89,13 +89,14 @@ public class DemoStaffTimePunchDaoImplTest {
         List<TimePunchEntry> entries = obj.getTimePunchEntries(admin);
         TimePunchEntry entry = entries.get(0);
         assertEquals("Entry 0 job code is wrong", 123, entry.getJob().getJobCode());
-        assertEquals("Entry 0 week time worked wrong", "20:50", entry.getWeekTimeWorked());
-        assertEquals("Entry 0 pay period time worked wrong", "25:55", entry.getPayPeriodTimeWorked());
+        assertEquals("Entry 0 week time worked wrong", 1250, entry.getWeekTimeWorked());
+        assertEquals("Entry 0 pay period time worked wrong", 1555, entry.getPayPeriodTimeWorked());
         obj.punchInTimeClock(admin, 123, "127.0.0.1");
         obj.punchOutTimeClock(admin, 123, "127.0.0.1");
         entries = obj.getTimePunchEntries(admin);
         entry = entries.get(0);
-        assertEquals("Entry 0 week time worked wrong", "20:55", entry.getWeekTimeWorked());
-        assertEquals("Entry 0 pay period time worked wrong", "26:00", entry.getPayPeriodTimeWorked());
+        // Punch out adds 5 minutes in demo mode
+        assertEquals("Entry 0 week time worked wrong", 1255, entry.getWeekTimeWorked());
+        assertEquals("Entry 0 pay period time worked wrong", 1560, entry.getPayPeriodTimeWorked());
     }
 }

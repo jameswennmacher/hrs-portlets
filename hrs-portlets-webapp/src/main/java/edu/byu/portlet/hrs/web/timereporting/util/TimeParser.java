@@ -17,45 +17,24 @@
  * under the License.
  */
 
-package edu.byu.hr.model.timereporting;
+package edu.byu.portlet.hrs.web.timereporting.util;
+
+import edu.byu.hr.HrPortletRuntimeException;
 
 /**
- * Description
+ * Interface related to parsing time values from the UI to minutes
  *
  * @author James Wennmacher, jwennmacher@unicon.net
  */
 
-public class LeaveTimeBalance {
+public interface TimeParser {
+
     /**
-     * Job code.
+     * Convert a string time value from the UI to the number of minutes.
+     * @param timeWorked Time worked in format determined by implementing class.  Null or empty value is
+     *                   treated as 0 minutes.
+     * @return Number of minutes
+     * @throws HrPortletRuntimeException if the string is invalid.
      */
-    int jobCode;
-    /**
-     * Time available in minutes
-     */
-    int timeAvailable;
-
-    public LeaveTimeBalance() {
-    }
-
-    public LeaveTimeBalance(int jobCode, int minutes) {
-        this.jobCode = jobCode;
-        this.timeAvailable = minutes;
-    }
-
-    public Integer getJobCode() {
-        return jobCode;
-    }
-
-    public void setJobCode(int jobCode) {
-        this.jobCode = jobCode;
-    }
-
-    public int getTimeAvailable() {
-        return timeAvailable;
-    }
-
-    public void setTimeAvailable(int timeAvailable) {
-        this.timeAvailable = timeAvailable;
-    }
+    public int computeMinutes(String timeWorked) throws HrPortletRuntimeException;
 }

@@ -35,11 +35,15 @@
         <param-value>/WEB-INF/context/portlet/portletApplicationContext.xml</param-value>
     </context-param>
 
-    <!-- For some reason Tomcat 7.0.39 wasn't resolving the taglibs automatically -->
+    <!-- For some reason Tomcat 7.0.39 wasn't resolving the taglibs in the tags folder automatically -->
     <jsp-config>
         <taglib>
             <taglib-uri>http://my.wisc.edu/HRSPortlets/ut</taglib-uri>
             <taglib-location>/WEB-INF/tags/ut.tld</taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>http://edu.byu.portlet.hrs/HRSPortlets/time</taglib-uri>
+            <taglib-location>/WEB-INF/tags/time.tld</taglib-location>
         </taglib>
     </jsp-config>
 

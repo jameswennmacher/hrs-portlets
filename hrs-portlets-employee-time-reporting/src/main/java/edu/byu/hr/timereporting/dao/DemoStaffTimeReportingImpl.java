@@ -92,8 +92,8 @@ public class DemoStaffTimeReportingImpl implements StaffTimeReportingDao {
     private void initializeForEmployeeIfNeeded (String emplId) {
         if (emplLeaveBalances.get(emplId) == null) {
             List<LeaveTimeBalance> leaveBalances = new ArrayList<LeaveTimeBalance>();
-            leaveBalances.add(new LeaveTimeBalance(SICK, "215:04"));
-            leaveBalances.add(new LeaveTimeBalance(VACATION, "64:10"));
+            leaveBalances.add(new LeaveTimeBalance(SICK, 215*60+4)); // 215 hours, 4 min
+            leaveBalances.add(new LeaveTimeBalance(VACATION, 64*60+10)); //64:10
             emplLeaveBalances.put(emplId, leaveBalances);
         }
         if (emplLeaveEntries.get(emplId) == null) {
@@ -103,7 +103,7 @@ public class DemoStaffTimeReportingImpl implements StaffTimeReportingDao {
                 // Skip Sat and Sun since they by default don't display
                 LocalDate date = startDate.plusDays(i);
                 if (date.getDayOfWeek() < 6) {
-                    items.add(new TimePeriodEntry(date, WORKED, date.getDayOfWeek() + ":15"));
+                    items.add(new TimePeriodEntry(date, WORKED, date.getDayOfWeek()*60+15));
                 }
             }
             emplLeaveEntries.put(emplId, items);

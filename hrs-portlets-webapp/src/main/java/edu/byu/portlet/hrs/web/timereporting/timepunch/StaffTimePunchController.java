@@ -6,7 +6,6 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
-import javax.portlet.ResourceRequest;
 
 import edu.byu.hr.model.timereporting.TimePunchEntry;
 import edu.byu.hr.timereporting.service.StaffTimePunchService;
@@ -20,7 +19,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
-import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
 @Controller
 @RequestMapping("VIEW")
@@ -58,15 +56,15 @@ public class StaffTimePunchController {
     }
 
     private void addSummaryTimeEntries(ModelMap model, List<TimePunchEntry> jobEntries, String emplId) {
-        Period weekTotal = new Period();
-        Period payPeriodTotal = new Period();
+        int weekTotal = 0;
+        int payPeriodTotal = 0;
 
         for (TimePunchEntry jobEntry : jobEntries) {
-            weekTotal = TimeCalculations.addTime(weekTotal, jobEntry.getWeekTimeWorked());
-            weekTotal = TimeCalculations.addTime(payPeriodTotal, jobEntry.getPayPeriodTimeWorked());
+            weekTotal += jobEntry.getWeekTimeWorked();
+            payPeriodTotal += jobEntry.getPayPeriodTimeWorked();
         }
-        model.addAttribute("weekTotal", weekTotal.getHours() + ":" + weekTotal.getMinutes());
-        model.addAttribute("payPeriodTotal", payPeriodTotal.getHours() + ":" + payPeriodTotal.getMinutes());
+        model.addAttribute("weekTotal", weekTotal);
+        model.addAttribute("payPeriodTotal", payPeriodTotal);
     }
 
     @ActionMapping(params = "action=punchOut")
