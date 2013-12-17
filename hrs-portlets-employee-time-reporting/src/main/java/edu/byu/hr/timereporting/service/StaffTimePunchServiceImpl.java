@@ -27,6 +27,11 @@ import edu.byu.hr.dao.timereporting.StaffTimePunchDao;
 import edu.byu.hr.model.timereporting.TimePunchEntry;
 import edu.byu.hr.timereporting.util.TimePunchEmployeeKeyGenerator;
 import edu.byu.hr.timereporting.util.TimePunchEmployeeKeyGeneratorImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -36,6 +41,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class StaffTimePunchServiceImpl implements StaffTimePunchService {
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     StaffTimePunchDao dao;
     TimePunchEmployeeKeyGenerator timePunchEmployeeKeyGenerator = new TimePunchEmployeeKeyGeneratorImpl();
@@ -55,7 +61,10 @@ public class StaffTimePunchServiceImpl implements StaffTimePunchService {
      * @return List of <code>TimePUnchEntry</code> items
      */
     @Override
+    @Cacheable(value="timePunch", key = "#emplId", condition = "!#refresh")
+    @CachePut(value="timePunch", key = "#emplId", condition = "#refresh")
     public List<TimePunchEntry> getTimePunchEntries(PortletRequest request, String emplId, boolean refresh) {
+        log.debug("Invoking dao for time punch entries for employee ID {}, refresh = {}", emplId, refresh);
         return dao.getTimePunchEntries(emplId);
     }
 
@@ -66,7 +75,9 @@ public class StaffTimePunchServiceImpl implements StaffTimePunchService {
      * @param jobCode
      */
     @Override
+    @CacheEvict(value = "timePunch", key="#emplId")
     public void punchInTimeClock(PortletRequest request, String emplId, int jobCode, String clientIP) {
+        log.debug("Punching in employee ID {}", emplId);
         dao.punchInTimeClock(emplId, jobCode, clientIP);
     }
 
@@ -78,7 +89,9 @@ public class StaffTimePunchServiceImpl implements StaffTimePunchService {
      * @param clientIP
      */
     @Override
+    @CacheEvict(value = "timePunch", key="#emplId")
     public void punchOutTimeClock(PortletRequest request, String emplId, int jobCode, String clientIP) {
+        log.debug("Punching out employee ID {}", emplId);
         dao.punchOutTimeClock(emplId, jobCode, clientIP);
     }
 }

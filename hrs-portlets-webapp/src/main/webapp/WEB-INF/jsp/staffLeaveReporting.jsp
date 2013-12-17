@@ -35,7 +35,14 @@
                                     <c:out value="${time:toHhMm(entriesMap[jobCodeAndDate])}"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="text" id="${inputName}" name="${inputName}" value="${time:toHhMm(entriesMap[jobCodeAndDate])}"/>
+                                    <c:choose>
+                                        <c:when test="${blankZeroTimeValues && empty entriesMap[JobCodeAndDate]}">
+                                            <input type="text" id="${inputName}" name="${inputName}" value=""/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="text" id="${inputName}" name="${inputName}" value="${time:toHhMm(entriesMap[jobCodeAndDate])}"/>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:otherwise>
                             </c:choose>
                         </td>

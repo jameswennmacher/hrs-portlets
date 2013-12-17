@@ -73,13 +73,14 @@ public class StaffLeaveReportingController {
 
         model.addAttribute("prefix", FIELD_PREFIX);
         model.addAttribute("sep", SEPARATOR);
-        boolean blankEmptyEntries = Boolean.parseBoolean(prefs.getValue("blankZeroTimeValues", "true"));
+        boolean blankZeroTimeValues = Boolean.parseBoolean(prefs.getValue("blankZeroTimeValues", "true"));
+        model.addAttribute("blankZeroTimeValues", blankZeroTimeValues);
 
         int daysInPayPeriod = Period.fieldDifference(summary.getPayPeriodStart(), summary.getPayPeriodEnd()).getDays();
         model.addAttribute("previousPayDate", summary.getPayPeriodStart().minusDays(daysInPayPeriod));
         model.addAttribute("nextPayDate", summary.getPayPeriodEnd().plusDays(1));
 
-        model.addAttribute("entriesMap", createMapOfJobCodeDateEntries(summary, blankEmptyEntries));
+        model.addAttribute("entriesMap", createMapOfJobCodeDateEntries(summary, blankZeroTimeValues));
         List<List<LocalDate>> tableDates = createListOfTableDates(summary);
         model.addAttribute("listOfTableDates", tableDates);
         model.addAttribute("dayTotals", calculateDayTotals(summary));
@@ -221,7 +222,9 @@ public class StaffLeaveReportingController {
                     String[] fields = parameterName.split(SEPARATOR);
                     String jobCode = fields[1];
                     String dateString = fields[2];
-                    int timeValue = timeParser.computeMinutes(request.getParameter(parameterName));
+                    String time = request.getParameter(parameterName);
+                    int timeValue = time != null && StringUtils.isNotBlank(time) ?
+                            timeParser.computeMinutes(request.getParameter(parameterName)) : 0;
                     userEntries.add(new TimePeriodEntry(LocalDate.parse(dateString), Integer.parseInt(jobCode), timeValue));
                 } catch (HrPortletRuntimeException e) {
                     invalidFields.add(parameterName);

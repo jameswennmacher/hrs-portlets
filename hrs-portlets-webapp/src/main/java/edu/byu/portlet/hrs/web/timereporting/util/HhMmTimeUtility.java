@@ -34,6 +34,11 @@ public class HhMmTimeUtility implements TimeParser {
         return parseHHMMStringToMinutes(timeWorked);
     }
 
+    /**
+     * Return the number of minutes for an hh:mm time value.
+     * @param time Time value (must not be null or blank string)
+     * @return Time value converted to minutes
+     */
     public static int parseHHMMStringToMinutes(String time) {
         String[] values = time.split(COLON);
         if (values.length == 2) {
@@ -49,9 +54,10 @@ public class HhMmTimeUtility implements TimeParser {
     }
 
     /**
-     * Converts minutes to HH:MM format.  Null is considered 0 minutes.
+     * Converts minutes to Hh:MM format.  Null is considered 0 minutes.  If hours are less than 10, a single hours
+     * digit is returned.
      * @param minutes Number of minutes
-     * @return minutes represented as HH:MM format
+     * @return minutes represented as Hh:MM format
      */
     public static String toHhMm(Integer minutes) {
         minutes = minutes == null ? 0 : minutes;

@@ -28,6 +28,10 @@ import edu.byu.hr.model.timereporting.LeaveTimeBalance;
 import edu.byu.hr.model.timereporting.PayPeriodDailyLeaveTimeSummary;
 import edu.byu.hr.model.timereporting.TimePeriodEntry;
 import org.joda.time.LocalDate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -38,6 +42,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StaffTimeReportingServiceImpl implements StaffTimeReportingService {
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     StaffTimeReportingDao dao;
 
@@ -46,17 +51,23 @@ public class StaffTimeReportingServiceImpl implements StaffTimeReportingService 
     }
 
     @Override
+    @Cacheable(value="leaveSummary", key="#emplId + #dateInPayPeriod.toString()")
     public PayPeriodDailyLeaveTimeSummary getLeaveHoursReported(PortletRequest request, String emplId, LocalDate dateInPayPeriod) {
+        log.debug("Invoking dao to get leave summary for employee ID {}, date {}", emplId, dateInPayPeriod);
         return dao.getLeaveHoursReported(emplId, dateInPayPeriod);
     }
 
     @Override
+    @CacheEvict(value="leaveSummary", allEntries = true)
     public void updateLeaveTimeReported(PortletRequest request, String emplId, List<TimePeriodEntry> updatedTimesheet) {
+        log.debug("Evicting all entries from leaveSummary cache due to update from employee ID {}", emplId);
         dao.updateLeaveTimeReported(emplId, updatedTimesheet);
     }
 
     @Override
+    @Cacheable(value="leaveSummary", key="#emplId")
     public List<LeaveTimeBalance> getLeaveBalance(PortletRequest request, String emplId) {
+        log.debug("Invoking dao to get leave balance for employee ID {}", emplId);
         return dao.getLeaveBalance(emplId);
     }
 }
