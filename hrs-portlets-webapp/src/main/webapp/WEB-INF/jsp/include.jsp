@@ -29,4 +29,4 @@
 <%@ taglib prefix="rs"      uri="http://www.jasig.org/resource-server" %>
 
 <%@ taglib prefix="hrs" tagdir="/WEB-INF/tags/hrs" %>
-<!-- %@ taglib prefix="ut" uri="http://my.wisc.edu/HRSPortlets/ut"%> -->
+<%@ taglib prefix="ut" uri="http://my.wisc.edu/HRSPortlets/ut"%>

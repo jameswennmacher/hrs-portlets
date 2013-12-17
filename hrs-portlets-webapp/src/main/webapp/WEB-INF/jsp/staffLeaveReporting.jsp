@@ -2,7 +2,6 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 
-<%@ taglib prefix="ut" uri="http://my.wisc.edu/HRSPortlets/ut"%>
 <%@ taglib prefix="time" uri="http://edu.byu.portlet.hrs/HRSPortlets/time"%>
 <c:set var="n"><portlet:namespace/></c:set>
 

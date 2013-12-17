@@ -340,7 +340,7 @@
             }
         };
     };
-})(jQuery);
+})($);
 
 // $( document ).ready(function() {
 //     // console.log('dom rdy - attach to leave-entry-form', $('form.leave-entry-form'));
