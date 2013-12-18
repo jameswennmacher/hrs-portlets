@@ -138,9 +138,20 @@ public class DemoStaffTimePunchDaoImpl implements StaffTimePunchDao {
         log.debug("Punching in employee {} for job Code {} from IP {}", emplId, jobCode, clientIP);
         Map<Integer,Boolean> punchedInJobs = punchedInList.get(emplId);
         if (punchedInJobs.get(jobCode) != null) {
-            throw new HrPortletRuntimeException("Employee " + emplId + " is already punched in for " + jobCode);
+            throw new HrPortletRuntimeException("Employee " + emplId + " is already punched in for "
+                    + getJobDescription(emplId, jobCode));
         }
         punchedInJobs.put(jobCode, true);
+    }
+
+    private String getJobDescription (String emplId, int jobCode) {
+        List<TimePunchEntry> entries = timePunchDataCache.get(emplId);
+        for (TimePunchEntry entry : entries) {
+            if (entry.getJob().getJobCode() == jobCode) {
+                return entry.getJob().getJobTitle();
+            }
+        }
+        return Integer.toString(jobCode);
     }
 
     // Punches out and auto-gives 5 more minutes regardless of when punched in.
