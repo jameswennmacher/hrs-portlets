@@ -278,6 +278,20 @@
                 <name>blankZeroTimeValues</name>
                 <value>true</value>
             </preference>
+            <!-- Format string for displaying the pay period start date on the JSP page.  For date formats, see
+                 http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html
+            -->
+            <preference>
+                <name>payPeriodStartDateFormat</name>
+                <value>MMM d</value>
+            </preference>
+            <!-- Format string for displaying the pay period end date on the JSP page.  For date formats, see
+                 http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html
+            -->
+            <preference>
+                <name>payPeriodEndDateFormat</name>
+                <value>MMM d, YYYY</value>
+            </preference>
         </portlet-preferences>
     </portlet>
 

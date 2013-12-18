@@ -72,8 +72,8 @@
         </tbody>
     </table>
     <div class="timesheet-buttons">
-        <a href="${timesheetLink}" class="btn btn-default btn-sm" title="My Timesheet" role="button">My Timesheet</a>
-        <a href="${timesheetLink2}" class="btn btn-default btn-sm" title="My ACA Hours" role="button">My ACA Hours</a>
+        <a href="${timesheetLink}" target="_blank" class="btn btn-default btn-sm" title="My Timesheet" role="button">My Timesheet</a>
+        <a href="${timesheetLink2}" target="_blank" class="btn btn-default btn-sm" title="My ACA Hours" role="button">My ACA Hours</a>
         <a href="${refreshUrl}" class="btn btn-default btn-sm pull-right" title="Refresh Totals" role="button"><i class="fa fa-refresh"></i> Refresh Totals</a>
     </div>
 

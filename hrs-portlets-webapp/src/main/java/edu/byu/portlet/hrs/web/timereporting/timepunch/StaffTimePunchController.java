@@ -29,6 +29,7 @@ public class StaffTimePunchController {
 
     private static final String PUNCHED_IN_MESSAGE="time.reporting.punched.in";
     private static final String PUNCHED_OUT_MESSAGE="time.reporting.punched.out";
+    private static final String ERROR_MESSAGE_PARAM = "errorMessage";
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -47,11 +48,10 @@ public class StaffTimePunchController {
     // Render phase
     @RequestMapping
     public String viewEmployeeTimeReportingInfo(ModelMap model, PortletRequest request,
-                                                @RequestParam(value = "refresh", required = false) boolean refresh) {
-//        final String emplId = PrimaryAttributeUtils.getPrimaryId();
-        final String emplIdTest = PrimaryAttributeUtils.getPrimaryId();
+                                                @RequestParam(value = "refresh", required = false) boolean refresh,
+                                                @RequestParam(value = ERROR_MESSAGE_PARAM, required = false) String errorMessage) {
+        final String emplId = PrimaryAttributeUtils.getPrimaryId();
 
-        final String emplId = request.getRemoteUser();
         log.debug("Rendering time punch for employee ID {}, refresh={}", emplId, refresh);
         List<TimePunchEntry> jobEntries = service.getTimePunchEntries(request, emplId, refresh);
         model.addAttribute("jobEntries", jobEntries);
@@ -61,6 +61,7 @@ public class StaffTimePunchController {
         model.addAttribute("timesheetLink", prefs.getValue(TIMESHEET_DEEP_LINK, "http://localhost:8080/specify-timesheetDeepLink-preference"));
         model.addAttribute("timesheetLink2", prefs.getValue(ACAHOURS_DEEP_LINK, "http://localhost:8080/specify-hoursDeepLink2-preference"));
 
+        model.addAttribute("errorMessage", errorMessage);
         return "employeeTimeReporting";
     }
 
@@ -78,8 +79,7 @@ public class StaffTimePunchController {
 
     @ActionMapping(params = "action=punchOut")
     public void punchOut(ActionRequest request, ActionResponse response, @RequestParam("jobCode") final int jobCode) {
-//        final String emplId = PrimaryAttributeUtils.getPrimaryId();
-        final String emplId = request.getRemoteUser();
+        final String emplId = PrimaryAttributeUtils.getPrimaryId();
         log.debug("Punching out employee ID {} for job code {}", emplId, jobCode);
 
         try {
@@ -87,14 +87,13 @@ public class StaffTimePunchController {
             response.setRenderParameter("message", messageSource.getMessage(PUNCHED_OUT_MESSAGE, null, "You have been punched out", request.getLocale()));
         } catch (HrPortletRuntimeException e) {
             log.debug("Punch Out action failed for employee {} job code {}", emplId, jobCode, e);
-            response.setRenderParameter("errorMessage", e.getMessage());
+            response.setRenderParameter(ERROR_MESSAGE_PARAM, e.getMessage());
         }
     }
 
     @ActionMapping(params = "action=punchIn")
     public void punchIn(ActionRequest request, ActionResponse response, @RequestParam("jobCode") final int jobCode) {
-//        final String emplId = PrimaryAttributeUtils.getPrimaryId();
-        final String emplId = request.getRemoteUser();
+        final String emplId = PrimaryAttributeUtils.getPrimaryId();
         log.debug("Punching in employee ID {} for job code {}", emplId, jobCode);
 
         try {
@@ -102,7 +101,7 @@ public class StaffTimePunchController {
             response.setRenderParameter("message", messageSource.getMessage(PUNCHED_IN_MESSAGE, null, "You have been punched in", request.getLocale()));
         } catch (HrPortletRuntimeException e) {
             log.debug("Punch in action failed for employee {} job code {}", emplId, jobCode, e);
-            response.setRenderParameter("errorMessage", e.getMessage());
+            response.setRenderParameter(ERROR_MESSAGE_PARAM, e.getMessage());
         }
     }
 }

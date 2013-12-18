@@ -12,8 +12,8 @@
             input: '',
             rowIndex: '',
             columnIndex: '',
-            rowTotal: '00:00',
-            columnTotal: '00:00',
+            rowTotal: '0:00',
+            columnTotal: '0:00',
             grandTotalCell: '',
             errors: [],
             alertDiv: $(self).find('div.leave-entry-alerts'),
@@ -52,9 +52,9 @@
             var seconds = Math.ceil(divisor_for_seconds);
 
             var obj = {
-                "h": (hours < 10) ? '0' + hours : hours,
+                "h": hours,
                 "m": (minutes < 10) ? '0' + minutes : minutes,
-                "s": (seconds < 10) ? '0' + seconds : seconds,
+                "s": (seconds < 10) ? '0' + seconds : seconds
             };
             return obj;
         };
@@ -62,7 +62,7 @@
         var timeToSeconds = function(hm) {
             //    var hms = '02:00';   // your input string
             if (!hm) {
-                    hm = '00:00';
+                    hm = '0:00';
             }
             var a = hm.split(':'); // split it at the colons
 
@@ -77,11 +77,11 @@
                  * @type {[type]}
                  */
                 var f = timeToSeconds(first);
-                var s = timeToSeconds(second);
+                var s = timeToSeconds(second === '' ? '0:00' : second);
                 var t = secondsToTime(f + s);
-                if (t.h.length == 1) {
-                        t.h = '0'+t.h;
-                }
+//                if (t.h.length == 1) {
+//                        t.h = '0'+t.h;
+//                }
                 if (t.m.length == 1) {
                         t.m = '0'+t.m;
                 }
@@ -94,7 +94,6 @@
 //  console.log(settings.table);
             var hours = settings.table.find('tbody tr:first td:nth-child('+idx+')').text();
             var total = settings.table.find('tbody tr:last td:nth-child('+idx+')');
-            var inputTotals = '00:00';
 // console.log('col - hours', hours);
             /**
              * Now that we have the column index, we need to loop thru all cells and get their values.  The values will be stored in an array
@@ -103,9 +102,9 @@
             var cells = settings.table.find('tr td:nth-child('+idx+') input');
             var cellValues = [];
             $.each( cells, function(index, value) {
-                    if (value.value === '') {
-                        value.value = '00:00';
-                    }
+//                    if (value.value === '') {
+//                        value.value = '0:00';
+//                    }
                     cellValues.push(value.value);
             });
 
@@ -116,19 +115,21 @@
             // console.log('col - total', total);
             // console.log('col - hours', hours);
 
-            if (hours > '24:00') {
+            if (timeToSeconds(hours) > 24*60*60) {
                 // console.log('display 24-hour error');
                 highlightField();
                 total.addClass('time-total-error');
                 updateAlert('overDayTotal');
                 // highlightField(total);
+            } else {
+                total.removeClass('time-total-error');
             }
             total.text(hours);
         };
         
         var rowTotals = function() {
             var rowIndex = settings.rowIndex + 1; // the n-th child selector starts with 1 not 0 so we need to increase the index.
-            var inputTotals = '00:00';
+            var inputTotals = '0:00';
 
             /**
              * Now that we have the column index, we need to loop thru all cells and get their values.  The values will be stored in an array
@@ -139,9 +140,9 @@
 
             var cellValues = [];
             $.each( cells, function(index, value) {
-                    if (value.value === '') {
-                        value.value = '00:00';
-                    }
+//                    if (value.value === '') {
+//                        value.value = '0:00';
+//                    }
                     cellValues.push(value.value);
             });
 
@@ -151,8 +152,10 @@
             });
             // console.log('row - totalCell', totalCell);
             // console.log('row - inputTotals', inputTotals);
-            if (inputTotals > '40:00') {
+            if (timeToSeconds(inputTotals) > 40*60*60) {
                 totalCell.addClass('leave-entry-total-error');
+            } else {
+                totalCell.removeClass('leave-entry-total-error');
             }
             totalCell.text(inputTotals);
         };
@@ -160,7 +163,7 @@
         var grandTotal = function() {
             var lastColumnIndex = settings.table.find('tbody tr:first td:last').index() + 1;
             var lastRowIndex = settings.table.find('tbody tr:last').index() + 1;
-            var grandTotal = '00:00';
+            var grandTotal = '0:00';
 
             // Calculate the column values
             var cells = settings.table.find('tbody tr td:nth-child('+lastColumnIndex+')').not(':last');

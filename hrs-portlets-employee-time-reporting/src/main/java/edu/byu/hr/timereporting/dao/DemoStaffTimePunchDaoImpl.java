@@ -135,7 +135,7 @@ public class DemoStaffTimePunchDaoImpl implements StaffTimePunchDao {
     @Override
     public synchronized void punchInTimeClock(String emplId, int jobCode, String clientIP) {
         getTimePunchData(emplId);  // For Demo mode and junit tests, make sure the database is initialized
-        log.debug("Punching in employee {} for job Code {} from IP ", emplId, jobCode, clientIP);
+        log.debug("Punching in employee {} for job Code {} from IP {}", emplId, jobCode, clientIP);
         Map<Integer,Boolean> punchedInJobs = punchedInList.get(emplId);
         if (punchedInJobs.get(jobCode) != null) {
             throw new HrPortletRuntimeException("Employee " + emplId + " is already punched in for " + jobCode);
@@ -147,7 +147,7 @@ public class DemoStaffTimePunchDaoImpl implements StaffTimePunchDao {
     @Override
     public void punchOutTimeClock(String emplId, int jobCode, String clientIP) {
         getTimePunchData(emplId);  // For Demo mode and junit tests, make sure the database is initialized
-        log.debug("Punching out employee {} for job Code {} from IP ", emplId, jobCode, clientIP);
+        log.debug("Punching out employee {} for job Code {} from IP {}", emplId, jobCode, clientIP);
         Map<Integer,Boolean> punchedInJobs = punchedInList.get(emplId);
         if ( punchedInJobs.get(jobCode) != null) {
             // Update the worked amount
