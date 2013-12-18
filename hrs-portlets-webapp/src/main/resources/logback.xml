@@ -22,7 +22,7 @@
 
 <configuration scan="true" scanPeriod="30 seconds">
     <appender name="R" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${catalina.base}/logs/HRSPortlets.log</File>
+        <File>${catalina.base}/logs/portlets/HRSPortlets/HRSPortlets.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
             <fileNamePattern>${catalina.base}/logs/portlets/HRSPortlets/HRSPortlets.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
