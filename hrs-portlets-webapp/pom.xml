@@ -21,22 +21,27 @@
             <artifactId>hrs-portlets-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>${project.groupId}</groupId>-->
+            <!--<artifactId>hrs-portlets-ps-impl</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>${project.groupId}</groupId>-->
+            <!--<artifactId>hrs-portlets-cypress-impl</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>${project.groupId}</groupId>-->
+            <!--<artifactId>hrs-portlets-bnsemail-impl</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>hrs-portlets-ps-impl</artifactId>
+            <artifactId>hrs-portlets-demo-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>hrs-portlets-cypress-impl</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>hrs-portlets-bnsemail-impl</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    
+
         <!-- ===== Compile Time Dependencies ============================== -->
         <dependency>
             <groupId>javax.servlet</groupId>
